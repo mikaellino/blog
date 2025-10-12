@@ -1,13 +1,9 @@
 <?php
+//Arquivo index responsável pela inialização do sistema
+
 require_once 'sistema/configuracao.php';
 include_once 'Helpers.php';
 
-$texto = 'texto para ser resimoido';
+$data = date('H/m/Y H:i:s');
 
-
-
-// var_dump($string);
-echo '<hr>';
-echo saudacao();
-// echo '<hr>';
-// echo resumirTexto($texto, 50);
+echo $data;
