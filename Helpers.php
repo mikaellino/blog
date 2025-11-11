@@ -2,6 +2,58 @@
 // Arquivo de funções auxiliares
 
 /**
+ * Valida um CPF
+ * 
+ * @param string $cpf
+ * @return string
+ */
+function validarCpf(string $cpf): bool
+{
+    $cpf = limparNumero($cpf);
+    if(mb_strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf)) {
+        return false;
+    }
+
+    for ($t = 9; $t <11; $t++) {
+        for ($d = 0, $c = 0; $c < $t; $c++) {
+            $d += $cpf[$c] * (($t + 1) - $c);
+        }
+        $d = ((10 * $d) % 11) % 10;
+        if ($cpf[$c] != $d) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function limparNumero(string $numero): string
+{
+    return preg_replace('/[^0-9]/', '', $numero);
+}
+
+/**
+ * Gera um slug a partir de uma string
+ * 
+ * @param string $string
+ * @return string
+ */
+function slug(string $string): string
+{
+    $mapa['a'] = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ@#$%&*()_–+=|{}[]]/?¨!;:.,\\\"<>°ºª';
+    $mapa['b'] = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyy                                   ';
+    
+    $string = mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');
+    $mapa_a = mb_convert_encoding($mapa['a'], 'ISO-8859-1', 'UTF-8');
+
+    $slug = strtr($string, $mapa['a'], $mapa['b']);
+    $slug = strip_tags(trim($slug));
+    $slug = str_replace(' ', '-', $slug);
+    $slug = str_replace(['-----', '-----', '---', '--', '-'], '-', $slug);
+
+    return strtolower(mb_convert_encoding($slug, 'UTF-8', 'ISO-8859-1'));
+}
+
+/**
  * Retorna a data atual formatada em português
  * 
  * @return string
@@ -88,7 +140,7 @@ function validarUrl(string $url): bool
     if(!str_contains($url, '.')){
         return false;
     }
-    if(str_contains($url, 'http://') or str_contains($url, 'https://') ){
+    if(str_contains($url, 'http://') || str_contains($url, 'https://') ){
         return true;
     }
     return false;
@@ -174,15 +226,12 @@ function saudacao(): string
 {
     $hora = date('H');
 
-    if ($hora >= 0 && $hora <= 5) {
-        $saudacao = 'boa madrugada';
-    } elseif ($hora >= 6 && $hora <= 12) {
-        $saudacao = 'bom dia';
-    } elseif ($hora >= 13 && $hora <= 18) {
-        $saudacao = 'boa tarde';
-    } else {
-        $saudacao = 'boa noite';
-    }
+    $saudacao = match (true) {
+        $hora >= 0 && $hora <= 5 => 'boa madrugada',
+        $hora >= 6 && $hora <= 12 => 'bom dia',
+        $hora >= 13 && $hora <= 18 => 'boa tarde',
+        default => 'boa noite',
+    };
 
     return $saudacao;
 }

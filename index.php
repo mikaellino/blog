@@ -4,13 +4,8 @@
 require_once 'sistema/configuracao.php';
 include_once 'Helpers.php';
 
-echo saudacao() . ' ' . dataAtual();
+$cpf = '12345678910';
 
-// foreach ($meses as $indice => $valor){
-//     echo $valor . '<br>';
-// }
+var_dump(validarCpf($cpf));
 
-// echo '<hr>';
-// echo $_SERVER['HTTP_HOST'];
-// echo '<hr>';
-// var_dump($_SERVER);
+//echo $limparNumero = preg_replace('/[^0-9]/', '', $cpf);
