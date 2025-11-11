@@ -2,6 +2,114 @@
 // Arquivo de funções auxiliares
 
 /**
+ * Retorna a data atual formatada em português
+ * 
+ * @return string
+ */
+function dataAtual(): string
+{
+    $diaMes = date('d');
+    $diaSemana = date('w');
+    $mes = date('m') - 1;
+    $ano = date('Y');
+
+    $diasSemana = [
+        'Domingo',
+        'Segunda-feira',
+        'Terça-feira',
+        'Quarta-feira',
+        'Quinta-feira',
+        'Sexta-feira',
+        'Sábado'
+    ];
+
+    $nomesMeses = [
+        'Janeiro',
+        'Fevereiro',
+        'Março',
+        'Abril',
+        'Maio',
+        'Junho',
+        'Julho',
+        'Agosto',
+        'Setembro',
+        'Outubro',
+        'Novembro',
+        'Dezembro'
+    ];
+
+    $dataFormatada = $diasSemana[$diaSemana] . ', ' . $diaMes . ' de ' . $nomesMeses[$mes] . ' de ' . $ano;
+    return $dataFormatada;
+}
+
+/**
+ * Retorna a url completa de acordo com o ambiente
+ * 
+ * @param string $url
+ * @return string
+ */
+function url(string $url): string
+{
+    $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
+    $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
+
+    if(str_starts_with($url, '/')){
+        return $ambiente .$url;
+    }
+
+    return $ambiente . '/' . $url;
+}
+
+/**
+ * Verifica se o servidor é localhost
+ * 
+ * @return bool
+ */
+function localhost(): bool
+{
+    $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
+
+    if ($servidor == 'localhost') {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * Valida se realmente se trata de uma url
+ * @param string $url
+ * @return bool
+ */
+function validarUrl(string $url): bool
+{
+    if(mb_strlen($url) < 10){
+        return false;
+    }
+    if(!str_contains($url, '.')){
+        return false;
+    }
+    if(str_contains($url, 'http://') or str_contains($url, 'https://') ){
+        return true;
+    }
+    return false;
+}
+
+function validarUrlComFiltro(string $url): bool
+{
+    return filter_var($url, FILTER_VALIDATE_URL);
+}
+
+/**
+ * Valida se realmente é um email
+ * @param string $email
+ * @return bool
+ */
+function validarEmail(string $email): bool
+{
+    return filter_var($email, FILTER_VALIDATE_EMAIL);
+}
+
+/**
  * Conta o tempo decorrido a partir de uma data
  * @param string $data
  * @return string
@@ -13,26 +121,26 @@ function contarTempo(string $data): string
     $diferenca = $agora - $tempo;
 
     $segundos = $diferenca;
-    $minutos = round($diferenca/60);
-    $horas = round($diferenca/3600);
-    $dias = round($diferenca/86400); 
-    $semanas = round($diferenca/604800);
-    $meses = round($diferenca/2419200);
-    $anos = round($diferenca/29030400);
+    $minutos = round($diferenca / 60);
+    $horas = round($diferenca / 3600);
+    $dias = round($diferenca / 86400);
+    $semanas = round($diferenca / 604800);
+    $meses = round($diferenca / 2419200);
+    $anos = round($diferenca / 29030400);
 
-    if($segundos <= 60) {
+    if ($segundos <= 60) {
         return 'agora';
-    }elseif($minutos<=60) {
+    } elseif ($minutos <= 60) {
         return $minutos == 1 ? 'há um minuto' : 'há ' . $minutos . ' minutos';
-    }elseif($horas<=24) {
+    } elseif ($horas <= 24) {
         return $horas == 1 ? 'há uma hora' : 'há ' . $horas . ' horas';
-    }elseif($dias<=7) {
+    } elseif ($dias <= 7) {
         return $dias == 1 ? 'ontem' : 'há ' . $dias . ' dias';
-    }elseif($semanas<=4) {
+    } elseif ($semanas <= 4) {
         return $semanas == 1 ? 'há uma semana' : 'há ' . $semanas . ' semanas';
-    }elseif($meses<=12) {
+    } elseif ($meses <= 12) {
         return $meses == 1 ? 'há um mês' : 'há ' . $meses . ' meses';
-    }else{
+    } else {
         return $anos == 1 ? 'há um ano' : 'há ' . $anos . ' anos';
     }
 

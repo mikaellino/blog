@@ -4,4 +4,13 @@
 require_once 'sistema/configuracao.php';
 include_once 'Helpers.php';
 
-echo contarTempo('2025-10-13 21:48:20');
+echo saudacao() . ' ' . dataAtual();
+
+// foreach ($meses as $indice => $valor){
+//     echo $valor . '<br>';
+// }
+
+// echo '<hr>';
+// echo $_SERVER['HTTP_HOST'];
+// echo '<hr>';
+// var_dump($_SERVER);
