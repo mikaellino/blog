@@ -2,10 +2,12 @@
 //Arquivo index responsável pela inialização do sistema
 
 require_once 'sistema/configuracao.php';
-include_once 'Helpers.php';
+include_once './sistema/Nucleo/Helpers.php';
+include './sistema/Nucleo/Mensagem.php';
+include './sistema/Nucleo/Controlador.php';
 
-$cpf = '12345678910';
+use sistema\Nucleo\Controlador;
 
-var_dump(validarCpf($cpf));
-
-//echo $limparNumero = preg_replace('/[^0-9]/', '', $cpf);
+$controlador = new Controlador();
+echo '<hr>';
+var_dump($controlador);
