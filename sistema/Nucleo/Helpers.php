@@ -105,7 +105,7 @@ class Helpers
      * @param string $url
      * @return string
      */
-    public static function url(string $url): string
+    public static function url(?string $url = null): string
     {
         $servidor = filter_input(INPUT_SERVER, 'SERVER_NAME');
         $ambiente = ($servidor == 'localhost' ? URL_DESENVOLVIMENTO : URL_PRODUCAO);
@@ -211,7 +211,7 @@ class Helpers
      * @param float $valor opcional - valor de entrada que será formatado
      * @return string valor formatado
      */
-    public static function formatarValor(float $valor = null): string
+    public static function formatarValor(?float $valor = null): string
     {
         return number_format(($valor ? $valor : 0), 2, ',', '.');
     }
@@ -222,7 +222,7 @@ class Helpers
      * @param int $numero opcional - recebe o número que será formatado
      * @return string número formatado
      */
-    public static function formatarNumero(int $numero = null): string
+    public static function formatarNumero(?int $numero = null): string
     {
         return number_format($numero ? $numero : 0, 0, '.', '.');
     }
