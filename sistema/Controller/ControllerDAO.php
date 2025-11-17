@@ -15,7 +15,7 @@ class ControllerDAO extends Controlador
     public function index(): void
     {
         echo $this->template->renderizar('index.html', [
-            'titulo' => 'teste de título',
+            'titulo' => 'Página Inicial',
             'subtitulo' => 'teste de subtitulo'
         ]);
     }
@@ -33,6 +33,18 @@ class ControllerDAO extends Controlador
         echo $this->template->renderizar('home.html', [
             'titulo' => 'Página Home',
             'subtitulo' => 'Subtítulo da Página Home'
+        ]);
+    }
+
+    public function myPage(): void
+    {
+        echo $this->template->renderizar('mikael.html', []);
+    }
+
+    public function erro404(): void
+    {
+        echo $this->template->renderizar('404.html', [
+            'titulo' => 'Página não encontrada!'
         ]);
     }
 }
