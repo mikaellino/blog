@@ -6,11 +6,9 @@ use sistema\Nucleo\Conexao;
 
 class NewsModel
 {
-    public function read(?int $id): array
+    public function read(): array
     {
-        $where = ($id ? "WHERE id = {$id}" : '');
-
-        $query = "SELECT * FROM `divulgacoes` {$where}";
+        $query = "SELECT * FROM `divulgacoes`";
         $stmt = Conexao::getInstancia()->query($query);
         $result = $stmt->fetchAll();
 
