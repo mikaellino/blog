@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 {% block conteudo %}
 
-
 <div class="container my-5">
-    <h1>{{ 'index' | upper }}</h1>
-</div>
+    <div class="row">
+        {% for publicacao in publicacoes %}
+        <div class="col md-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <a href="{{url('publicacao/'~publicacao.id)}}">
+                        <h5 class="card-title">{{ publicacao.titulo }}</h5>
+                        <p class="card-text">{{ (resumirTexto(publicacao.conteudo, 150)) }}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
