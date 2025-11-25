@@ -3,6 +3,8 @@
 namespace sistema\Controller;
 
 use sistema\Nucleo\Controlador;
+use sistema\Model\PostModel;
+use sistema\Nucleo\Helpers;
 
 class ControllerDAO extends Controlador
 {
@@ -14,9 +16,22 @@ class ControllerDAO extends Controlador
 
     public function index(): void
     {
+        $publicacoes = (new PostModel())->busca();
+
         echo $this->template->renderizar('index.html', [
-            'titulo' => 'Página Inicial',
-            'subtitulo' => 'teste de subtitulo'
+            'publicacoes' => $publicacoes
+        ]);
+    }
+
+    public function publicacao(int $id): void
+    {
+        $post = (new PostModel())->buscaPorId($id);
+        if(!$post) {
+            Helpers::redirecionar('404');
+        }
+
+        echo $this->template->renderizar('post.html', [
+            'post' => $post
         ]);
     }
 
