@@ -14,6 +14,7 @@ class Conexao
         if (empty(self::$instancia)) {
             try {
                 self::$instancia = new PDO('mysql:host='. DB_HOST .';port='. DB_PORTA .';dbname='. DB_NAME, DB_USER, DB_PASSWORD, [
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
                     PDO::ATTR_CASE => PDO::CASE_NATURAL
