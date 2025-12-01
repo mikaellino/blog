@@ -11,6 +11,7 @@ try {
     SimpleRouter::get(URL_SITE . 'home', 'ControllerDAO@home');
     SimpleRouter::get(URL_SITE . 'myPage', 'ControllerDAO@myPage');
     SimpleRouter::get(URL_SITE . 'publicacao/{id}', 'ControllerDAO@publicacao');
+    SimpleRouter::get(URL_SITE . 'categoria/{id}', 'ControllerDAO@categoria');
 
     SimpleRouter::get(URL_SITE . '404', 'ControllerDAO@erro404');
 
