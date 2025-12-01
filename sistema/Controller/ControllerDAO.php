@@ -5,6 +5,7 @@ namespace sistema\Controller;
 use sistema\Nucleo\Controlador;
 use sistema\Model\PostModel;
 use sistema\Nucleo\Helpers;
+use sistema\Model\CategoriaModel;
 
 class ControllerDAO extends Controlador
 {
@@ -19,7 +20,8 @@ class ControllerDAO extends Controlador
         $publicacoes = (new PostModel())->busca();
 
         echo $this->template->renderizar('index.html', [
-            'publicacoes' => $publicacoes
+            'publicacoes' => $publicacoes,
+            'categorias' => $this->categorias()
         ]);
     }
 
@@ -31,7 +33,23 @@ class ControllerDAO extends Controlador
         }
 
         echo $this->template->renderizar('post.html', [
-            'post' => $post
+            'post' => $post,
+            'categorias' => $this->categorias()
+        ]);
+    }
+
+    public function categorias ()
+    {
+        return (new CategoriaModel ())->busca();
+    }
+
+    public function categoria( int $id): void
+    {
+        $publicacoes = (new CategoriaModel())->publicacoes($id);
+
+        echo $this->template->renderizar('categoria.html', [
+            'publicacoes' => $publicacoes,
+            'categorias' => $this->categorias()
         ]);
     }
 
