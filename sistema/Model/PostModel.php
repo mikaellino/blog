@@ -23,4 +23,13 @@ class PostModel
 
         return $result;
     }
+
+    public function pesquisa(string $busca): array
+    {
+        $query = "SELECT * FROM publicacoes WHERE `status` = 1 AND titulo LIKE '%{$busca}%'";
+        $stmt = Conexao::getInstancia()->query($query);
+        $resultado = $stmt->fetchAll();
+
+        return $resultado;
+    }
 }
