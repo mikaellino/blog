@@ -25,6 +25,22 @@ class ControllerDAO extends Controlador
         ]);
     }
 
+    public function buscar(): void
+    {
+        $busca = filter_input(INPUT_POST, 'busca',  FILTER_DEFAULT);
+        if(isset($busca) && !empty(trim($busca))) {
+            $publicacoes = (new PostModel())->pesquisa(trim($busca));
+
+            if(count($publicacoes) > 0) {
+                foreach($publicacoes as $publicacao) {
+                    echo "<a href='" . Helpers::url('publicacao/' . $publicacao->id) . "' class='d-block p-2 text-decoration-none text-dark border-bottom' style='color: #333 !important;'>";
+                    echo "<strong>" . htmlspecialchars($publicacao->titulo) . "</strong>";
+                    echo "</a>";
+                }
+            }
+        }
+    }
+
     public function publicacao(int $id): void
     {
         $post = (new PostModel())->buscaPorId($id);
