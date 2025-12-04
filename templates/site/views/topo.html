@@ -20,9 +20,13 @@
                 </div>
                 <li><a href="{{ url('sobre-nos')}}" class="nav-link px-2 text-white">Sobre</a></li>
             </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"> <input type="search"
-                    class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-            </form>
+            <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 position-relative">
+                <form data-url-busca="{{ url('buscar')}}" name="busca" role="search">
+                    <input type="search" id="busca" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search" name="busca">
+                </form>
+                <div id="buscaResultado" class="position-absolute w-100 bg-white border rounded mt-1" style="display: none; z-index: 1000; max-height: 300px; overflow-y: auto;"></div>
+            </div>
+
             <div class="text-end"> <button type="button" class="btn btn-outline-light me-2">Login</button> <button
                     type="button" class="btn btn-warning">Sign-up</button> </div>
         </div>
