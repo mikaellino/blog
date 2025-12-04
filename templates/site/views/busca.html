@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<div class="container my-5">
+
+    {% if publicacoes %}
+    <div class="row">
+        {% for publicacao in publicacoes %}
+        <div class="col md-3">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <a href="{{url('publicacao/'~publicacao.id)}}">
+                        <h5 class="card-title">{{ publicacao.titulo }}</h5>
+                        <p class="card-text">{{ (resumirTexto(publicacao.conteudo, 150)) }}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div class="col-lg-3">
+            {% include 'sidebar.html' %}
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        Sua busca não retornou nenhum resultado. Tente buscar com uma paavra diferente!
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
