@@ -1,0 +1,34 @@
+/* Remover formatação padrão dos links nos cards */
+.card-body a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-body a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-body a .card-title {
+    color: #212529; /* Cor padrão do texto */
+}
+
+.card-body a .card-text {
+    color: #6c757d; /* Cor mais suave para o texto do resumo */
+}
+
+/* Estilos para as sugestões de busca */
+#buscaResultado a:hover {
+    background-color: #f8f9fa !important;
+}
+
+#buscaResultado a:last-child {
+    border-bottom: none !important;
+}
+
+/* Responsividade para o container de busca */
+@media (max-width: 991px) {
+    .position-relative {
+        width: 100% !important;
+    }
+}
