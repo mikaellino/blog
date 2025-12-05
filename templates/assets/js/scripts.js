@@ -1,16 +1,16 @@
 $(document).ready(function () {
     $("#busca").keyup(function () {
         var busca = $(this).val();
-        if (busca !== "") {
+        if (busca.length > 0) {
             $.ajax({
                 url: $('form').attr('data-url-busca'),
                 method: 'POST',
                 data: { busca: busca },
-                success: function (data) {
-                    if (data.trim() !== "") {
-                        $('#buscaResultado').html(data).show();
+                success: function (resultado) {
+                    if (resultado.trim() !== "") {
+                        $('#buscaResultado').html(resultado).show();
                     } else {
-                        $('#buscaResultado').hide();
+                        $('#buscaResultado').html('<div class="alert alert-warning">Nenhum resultado encontrado.</div>').show();
                     }
                 }
             });
